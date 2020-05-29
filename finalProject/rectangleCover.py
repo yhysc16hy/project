@@ -127,7 +127,7 @@ def findRectangle(graph):
 #算法实现end-------------
 
 #############################
-# 输出为图像功能实现-------
+# 输出为图像功能实现(following are visualization function)-------
 #################################
 def DrawPoint(Point):
     plt.plot(Point.coordinate[0], Point.coordinate[1],'o' ,color=GRAY, linewidth=1, zorder=1)

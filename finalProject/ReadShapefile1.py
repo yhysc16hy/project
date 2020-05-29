@@ -124,7 +124,7 @@ def createTargetPolygonByConbineRectanlgeList(holeList,temp1):
 
 # 定义方法精炼顶点,目前再总方法中实现
 
-#读取shape文件 ,目前规定一个死目录
+#读取shape文件 ,目前规定一个死目录（read shapefile,and give it a absolute directory string）
 def ReadShapefile():
     border_shape = shapefile.Reader("E:/Desktop/project/shaefile/AUS_adm2.shp")
     border = border_shape.shapes()
@@ -132,7 +132,7 @@ def ReadShapefile():
 
 # 读取shape文件并且将转化好的正交多边形（用point表示方法）存入本地文件，n,m 分别表示希望
 #参数表示将多边形的长和宽分为多少份-
-# 该方法调用算法1
+# 该方法调用算法1(output figure after calculating by algorithm1)
 def SavePolygonToLocal(n,m):
     # 通过创建reader类的对象进行shapefile文件的读取
     saveLocal = 'fig cover AL1/'+str(n)+'x'+str(m)
@@ -146,7 +146,6 @@ def SavePolygonToLocal(n,m):
     # 根据读取的border中的元素构造的shapely rectagnle类的多边形
     f = open('E:/Desktop/project/fig/'+saveLocal+'/time.txt', "w")
     f1 = open('E:/Desktop/project/fig/' + saveLocal + '/unitNum.txt', "w")
-    # for i in range(0, len(border)):
     for i in range(0, len(border)):
         fig = plt.figure(figsize=(10,10))#每次循环都建立一张新的图片
         TestPolygon = border[i]
@@ -189,21 +188,21 @@ def SavePolygonToLocal(n,m):
                 break
         test = Grid([], temp3)
         start = time()
-        RectanlgeList=findRectangle(test)#调用算法一
+        RectanlgeList=findRectangle(test)#调用算法一（invoke algorithm1,in rectangleCover1.py）
         end = time()
         DrawAlgorithm(RectanlgeList,test)
         # DrawPointList(temp3)
         spendTime=(end - start)
         f.write("("+str(spendTime)+","+str(i)+")\n")
         f1.write("("+str(len(RectanlgeList))+","+str(i)+")\n")
-        # plt.savefig('E:/Desktop/project/fig/'+saveLocal+'/' + str(i) + '.png')
+        plt.savefig('E:/Desktop/project/fig/'+saveLocal+'/' + str(i) + '.png')
         print(i,spendTime)
         # plt.show()
         plt.close(fig)
     f.close()
     f1.close()
 
-# 该方法调用算法2
+# 该方法调用算法2(output figure after calculating by algorithm2)
 def SavePolygonToLocal1(n,m):
     # 通过创建reader类的对象进行shapefile文件的读取
     saveLocal = 'fig cover AL2/'+str(n)+'x'+str(m)
@@ -292,7 +291,7 @@ def SavePolygonToLocal1(n,m):
     f1.close()
 
 
-# 输出原有图像
+# 输出原有图像(output original graph)
 def SavePolygonToLocal2(n,m):
     # 通过创建reader类的对象进行shapefile文件的读取
     saveLocal = 'fig origin/'+str(n)+'x'+str(m)
@@ -373,10 +372,10 @@ def SavePolygonToLocal2(n,m):
     # f.close()
 
 if __name__ == '__main__':
-    z=100
-    # SavePolygonToLocal(z,z)
-    # SavePolygonToLocal1(z,z)
-    SavePolygonToLocal2(z,z)
+    z=10                            #the size of grid, 100 means a grid have 100x100 cells.
+    # SavePolygonToLocal(z,z)       #(output figure after calculating by algorithm1)
+    # SavePolygonToLocal1(z,z)      #(output figure after calculating by algorithm2)
+    SavePolygonToLocal2(z,z)        #(output original graph)
     print('finished111111')
 
 
